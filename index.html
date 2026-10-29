@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0b1f1c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%230f766e'/%3E%3Ctext x='50' y='68' font-size='56' text-anchor='middle'%3E%F0%9F%9B%B5%3C/text%3E%3C/svg%3E">
+<title>طابور الدليفري</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef3f2;--card:#fff;--tx:#0e1b19;--mut:#6a7c78;--bd:#e3ebe9;--ac:#0f766e;--ac2:#14b8a6;--acx:#fff;--wr:#ea6a2a;--ok:#16a34a;--bad:#dc2626;--hl:#e6f6f3;--glass:rgba(255,255,255,.82);--sh:0 2px 4px rgba(14,27,25,.04),0 10px 30px rgba(14,27,25,.08);--r:22px}
+@media (prefers-color-scheme:dark){:root{--bg:#09100f;--card:#131f1d;--tx:#eaf4f2;--mut:#8fa6a1;--bd:#1f302d;--ac:#2dd4bf;--ac2:#14b8a6;--acx:#042a26;--wr:#fb8c55;--ok:#4ade80;--bad:#f87171;--hl:#12302b;--glass:rgba(19,31,29,.82);--sh:0 10px 30px rgba(0,0,0,.35)}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--tx);font-family:"Tajawal",system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+.top{position:sticky;top:0;z-index:20;padding:calc(env(safe-area-inset-top,0px) + 14px) 18px 12px;background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--bd)}
+.top>div{max-width:720px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.top h1{margin:0;font-size:20px;font-weight:800}.top small{color:var(--mut);font-size:13px}
+.chip{background:var(--hl);color:var(--ac);padding:5px 12px;border-radius:99px;font-size:13px;font-weight:700;white-space:nowrap}
+main{max-width:720px;margin:0 auto;padding:16px 16px calc(170px + env(safe-area-inset-bottom,0px))}
+.tab{display:none;animation:in .25s ease}.tab.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);box-shadow:var(--sh);padding:16px;margin-bottom:14px}
+h2{font-size:15px;color:var(--mut);margin:4px 2px 10px;font-weight:700}
+.hero{background:linear-gradient(135deg,#0f766e,#14b8a6 70%,#5eead4);color:#fff;border:0;text-align:center;padding:26px 16px;position:relative;overflow:hidden}
+.hero.out{background:linear-gradient(135deg,#c2410c,#fb923c)}
+.hero.off{background:linear-gradient(135deg,#334155,#64748b)}
+.hero .big{font-size:76px;font-weight:800;line-height:1;margin:6px 0}
+.hero .t{font-size:18px;font-weight:700}.hero .s{opacity:.9;font-size:14px;margin-top:4px}
+.banner{display:inline-block;background:rgba(255,255,255,.22);padding:6px 16px;border-radius:99px;margin-top:12px;font-weight:700}
+.loc{display:flex;align-items:center;gap:12px}
+.dot{width:12px;height:12px;border-radius:50%;background:var(--mut);flex:none;box-shadow:0 0 0 4px rgba(120,140,135,.15)}
+.dot.on{background:var(--ok);box-shadow:0 0 0 4px rgba(22,163,74,.18)}.dot.off{background:var(--bad);box-shadow:0 0 0 4px rgba(220,38,38,.15)}
+.grow{flex:1;min-width:0}.nm{font-weight:700}.sub{font-size:13px;color:var(--mut)}
+.pill{background:var(--hl);color:var(--ac);padding:8px 14px;border-radius:12px;font-weight:700;font-size:14px}
+.btn{background:var(--card);border:1px solid var(--bd);padding:10px 14px;border-radius:14px;font-weight:700}
+.btn.go{background:var(--ac);color:var(--acx);border-color:var(--ac)}.btn.sm{padding:7px 11px;font-size:13px;border-radius:11px}
+.btn:disabled{opacity:.45}.btn:active,.dock button:active{transform:scale(.97)}
+.item{display:flex;align-items:center;gap:12px;padding:12px;border-radius:18px;background:var(--card);border:1px solid var(--bd);margin-bottom:10px;flex-wrap:wrap}
+.item.first{background:var(--hl);border-color:var(--ac)}.item.me{outline:2px solid var(--ac)}
+.av{width:46px;height:46px;border-radius:16px;display:grid;place-items:center;font-weight:800;font-size:19px;color:#fff;flex:none;position:relative}
+.av i{position:absolute;top:-7px;right:-7px;background:var(--tx);color:var(--bg);font-style:normal;font-size:11px;min-width:21px;height:21px;border-radius:99px;display:grid;place-items:center;border:2px solid var(--card);padding:0 4px}
+.acts{display:flex;gap:6px;flex-wrap:wrap}
+.tag{display:inline-block;font-size:12px;padding:1px 9px;border-radius:99px;background:var(--hl);color:var(--ac);margin-inline-start:6px;text-decoration:none;font-weight:700}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.stat{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:12px 6px;text-align:center;box-shadow:var(--sh)}
+.stat b{display:block;font-size:28px;line-height:1.1}.stat span{font-size:12px;color:var(--mut)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:10px}
+.chips button{background:var(--card);border:1px solid var(--bd);padding:8px 16px;border-radius:99px;font-weight:700;font-size:14px;white-space:nowrap}
+.chips button.on{background:var(--ac);color:var(--acx);border-color:var(--ac)}
+input,select{font:inherit;padding:13px;border-radius:14px;border:1px solid var(--bd);background:var(--card);color:var(--tx);width:100%}
+.row{display:flex;gap:8px;margin-top:10px}.row>.btn{flex:none}
+.empty{color:var(--mut);text-align:center;padding:18px 6px;font-size:14px}
+.link{display:block;margin:14px auto;color:var(--mut);text-decoration:underline;font-size:14px}
+.dock{position:fixed;left:0;right:0;bottom:calc(66px + env(safe-area-inset-bottom,0px));padding:10px 16px;z-index:15;pointer-events:none}
+.dock button{pointer-events:auto;display:block;width:100%;max-width:720px;margin:0 auto;padding:19px;font-size:20px;font-weight:800;border-radius:20px;background:var(--ac);color:var(--acx);box-shadow:0 10px 28px rgba(15,118,110,.4);transition:transform .1s}
+.dock button.warn{background:var(--wr);color:#fff;box-shadow:0 10px 28px rgba(234,106,42,.4)}
+.dock button:disabled{opacity:.5;box-shadow:none}
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;justify-content:center;background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--bd);padding:6px 10px calc(6px + env(safe-area-inset-bottom,0px))}
+.nav button{flex:1;max-width:200px;padding:6px;border-radius:14px;color:var(--mut);font-size:12px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:1px}
+.nav button span{font-size:22px;line-height:1.2}.nav button.on{color:var(--ac);background:var(--hl)}
+#toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 78px);transform:translate(-50%,-20px);background:var(--tx);color:var(--bg);padding:12px 18px;border-radius:14px;font-weight:700;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:60;max-width:90vw;text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+.sheet{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.45);display:none;align-items:flex-end;justify-content:center}
+.sheet.on{display:flex}
+.sheet>div{background:var(--bg);width:100%;max-width:720px;border-radius:26px 26px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px));max-height:80vh;overflow:auto;animation:up .25s ease}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.hide{display:none!important}
+</style>
+</head>
+<body>
+<div class="top"><div><div><h1 id="hi">🛵 طابور الدليفري</h1><small id="clock"></small></div><span id="mode" class="chip">دليفري</span></div></div>
+<main>
+  <!-- delivery -->
+  <section id="tHome" class="tab"><div id="hero"></div>
+    <div class="card"><div class="loc"><span id="dot" class="dot"></span><div class="grow"><div id="locT" class="nm"></div><div id="locS" class="sub"></div></div><button id="locB" class="btn sm go">تفعيل الموقع</button></div></div>
+    <button id="chg" class="link">تغيير الاسم</button><button id="login" class="link">دخول المدير</button></section>
+  <section id="tQueue" class="tab"><h2>الطابور الحالي</h2><div id="q1"></div></section>
+  <!-- admin -->
+  <section id="aQ" class="tab">
+    <div class="stats"><div class="stat"><b id="s1">0</b><span>في الفرع</span></div><div class="stat"><b id="s2">0</b><span>بره في أوردر</span></div><div class="stat"><b id="s3">0</b><span>غير متواجد</span></div></div>
+    <div class="chips" id="chips"></div>
+    <div id="next"></div><h2 id="qh">بعده في الطابور</h2><div id="q2"></div></section>
+  <section id="aTeam" class="tab">
+    <h2>بره في أوردر</h2><div id="o2"></div><h2>غير متواجد</h2><div id="a2"></div>
+    <h2>إضافة دليفري</h2><div class="card"><div class="row" style="margin-top:0"><input id="nn" placeholder="الاسم"><select id="ns" style="width:100px"><option value="9">9 ص</option><option value="13">1 ظ</option><option value="15">3 م</option></select></div><button id="add" class="btn go" style="width:100%;margin-top:10px;padding:14px">إضافة</button></div></section>
+  <section id="aSet" class="tab">
+    <h2>موقع الفرع</h2><div class="card"><div id="geost" class="sub" style="margin-bottom:10px"></div>
+      <button id="geo" class="btn" style="width:100%">📍 حدد موقع الفرع من مكاني الحالي</button>
+      <div class="row"><input id="mc" placeholder="أو الصق إحداثيات: 30.0444, 31.2357"><button id="mcb" class="btn">حفظ</button></div>
+      <div class="row"><input id="rad" type="number" min="30" value="200"><button id="radb" class="btn">نطاق (متر)</button></div></div>
+    <button id="logout" class="link">خروج من وضع المدير</button></section>
+</main>
+<div class="dock"><button id="act" class="hide"></button></div>
+<nav class="nav" id="nav"></nav>
+<div id="toast"></div>
+<div id="sheet" class="sheet"><div><h2 style="margin-top:0">اختار اسمك</h2><div id="names"></div><button id="login2" class="link">دخول المدير</button></div></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script>
+/* ====== الإعدادات ====== */
+const firebaseConfig = {
+  apiKey: "AIzaSyAXeXn5EwwsWc0p6pBHwzNn73sbHFcILno",
+  authDomain: "delivery-f62dd.firebaseapp.com",
+  databaseURL: "https://delivery-f62dd-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "delivery-f62dd",
+  appId: "1:232897928411:web:1741b9c52c9a5ea7f800fe"
+};
+const MANAGER_PIN = "1234";   // غيّر الرقم ده
+const SHOW_QUEUE = false;     // true = الدليفري يشوف تاب الطابور كله
+/* ======================= */
+const SH={"9":"9 ص","13":"1 ظ","15":"3 م"};
+const COL=["#0f766e","#2563eb","#9333ea","#db2777","#ea580c","#ca8a04","#16a34a","#0891b2"];
+const $=id=>document.getElementById(id);
+const h=(t,c,x,k)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;(k||[]).forEach(n=>e.append(n));return e};
+let drivers=[],branch=null,isMgr=false,ref,bref,myPos=null,perm="prompt",tab="tHome",flt="",asked=false,loaded=false;
+const sget=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+const sset=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+const tm=ms=>ms?new Date(ms).toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit"}):"";
+const NOW=()=>firebase.database.ServerValue.TIMESTAMP;
+const vib=()=>{try{navigator.vibrate&&navigator.vibrate(25)}catch(e){}};
+let tt;const toast=t=>{const e=$("toast");e.textContent=t;e.classList.add("on");clearTimeout(tt);tt=setTimeout(()=>e.classList.remove("on"),3200)};
+const inQ=()=>drivers.filter(d=>d.status==="in").sort((a,b)=>a.at-b.at);
+const upd=(id,data)=>{vib();return ref.child(id).update(data).catch(()=>toast("تعذر الحفظ، تأكد من الإنترنت."))};
+const rad=()=>(branch&&branch.radius)||200;
+const myId=()=>sget("me");
+function dist(a,b,c,d){const R=6371e3,r=x=>x*Math.PI/180,k=Math.sin(r(c-a)/2)**2+Math.cos(r(a))*Math.cos(r(c))*Math.sin(r(d-b)/2)**2;return 2*R*Math.asin(Math.sqrt(k))}
+const fm=m=>m<1000?Math.round(m)+" م":(m/1000).toFixed(1)+" كم";
+setInterval(()=>{$("clock").textContent=new Date().toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit"})},1000);
+
+/* الموقع */
+function getPos(){return new Promise((res,rej)=>{if(!navigator.geolocation)return rej({code:0});
+  navigator.geolocation.getCurrentPosition(p=>{myPos={lat:p.coords.latitude,lng:p.coords.longitude};res(myPos)},e=>rej(e),{enableHighAccuracy:true,timeout:15000,maximumAge:10000})})}
+function locUI(){const dot=$("dot"),t=$("locT"),s=$("locS"),b=$("locB");dot.className="dot";
+  if(!navigator.geolocation||!window.isSecureContext){t.textContent="الموقع غير متاح";s.textContent="افتح الصفحة من لينك https عشان الموقع يشتغل.";b.classList.add("hide");return}
+  if(perm==="denied"){dot.classList.add("off");t.textContent="الموقع مرفوض";s.textContent="فعّله من إعدادات المتصفح للموقع ده.";b.textContent="جرّب تاني";b.classList.remove("hide");return}
+  if(myPos){dot.classList.add("on");t.textContent="الموقع مفعّل";s.textContent=branch?"إنت على بعد "+fm(dist(myPos.lat,myPos.lng,branch.lat,branch.lng))+" من الفرع":"تم تحديد موقعك";b.textContent="تحديث";b.classList.remove("hide");return}
+  t.textContent="الموقع غير مفعّل";s.textContent="فعّله عشان تقدر تسجل وصولك.";b.textContent="تفعيل الموقع";b.classList.remove("hide")}
+async function actLoc(){try{await getPos();toast("تم تحديد موقعك ✓")}catch(e){if(e&&e.code===1)perm="denied";else toast("تعذر تحديد الموقع، جرّب في مكان مفتوح.")}locUI()}
+if(navigator.permissions&&navigator.permissions.query)navigator.permissions.query({name:"geolocation"}).then(p=>{perm=p.state;p.onchange=()=>{perm=p.state;locUI()};locUI()}).catch(()=>{});
+
+/* مكونات */
+function item(d,n,o){o=o||{};const c=h("div","item"+(o.first?" first":"")+(o.me?" me":""));
+  const av=h("div","av",d.name.trim().charAt(0));av.style.background=d.status==="out"?"var(--wr)":COL[(d.name.charCodeAt(0)||0)%COL.length];
+  if(n)av.append(h("i","",n));
+  const g=h("div","grow",null,[h("div","nm",d.name+(o.me?" (أنت)":""))]);
+  const sb=h("div","sub","شفت "+SH[d.shift]+(d.at?" · "+tm(d.at):"")+(o.first?" · الدور عليه":""));
+  if(o.loc&&d.lat!=null&&d.status==="in"){
+    if(branch)sb.append(h("span","tag","📍 "+fm(dist(d.lat,d.lng,branch.lat,branch.lng))));
+    const a=h("a","tag","الخريطة");a.target="_blank";a.rel="noopener";a.href="https://www.google.com/maps?q="+d.lat+","+d.lng;sb.append(a)}
+  g.append(sb);c.append(av,g);
+  if(o.acts&&o.acts.length){const w=h("div","acts");o.acts.forEach(([t,f,go])=>{const b=h("button","btn sm"+(go?" go":""),t);b.onclick=f;w.append(b)});c.append(w)}
+  return c}
+function fill(el,items,msg){el.replaceChildren(...items);if(!items.length)el.append(h("div","empty",msg))}
+
+/* العرض */
+function setTab(t){tab=t;document.querySelectorAll(".tab").forEach(e=>e.classList.toggle("on",e.id===t));buildNav();render()}
+function buildNav(){const nv=!isMgr&&!SHOW_QUEUE;$("nav").classList.toggle("hide",nv);document.querySelector(".dock").style.bottom=nv?"env(safe-area-inset-bottom,0px)":"";if(nv)return;const items=isMgr?[["aQ","📋","الطابور"],["aTeam","👥","الفريق"],["aSet","⚙️","الإعدادات"]]:[["tHome","🏠","الرئيسية"],["tQueue","📋","الطابور"]];
+  $("nav").replaceChildren(...items.map(([id,i,t])=>{const b=h("button",id===tab?"on":"",null,[h("span","",i),document.createTextNode(t)]);b.onclick=()=>setTab(id);return b}))}
+function setMgr(on){isMgr=on;sset("mgr",on?"1":"");$("mode").textContent=on?"المدير":"دليفري";$("hi").textContent=on?"🧭 لوحة المدير":"🛵 طابور الدليفري";
+  $("sheet").classList.remove("on");setTab(on?"aQ":"tHome")}
+function render(){
+  const q=inQ();
+  document.querySelectorAll(".tab").forEach(e=>e.classList.toggle("on",e.id===tab));
+  if(!isMgr){
+    const me=drivers.find(d=>d.id===myId()),act=$("act");
+    act.classList.toggle("hide",!(tab==="tHome"&&me));
+    if(me){
+      const pos=q.findIndex(x=>x.id===me.id)+1;
+      const hero=h("div","card hero"+(me.status==="out"?" out":me.status==="off"?" off":""));
+      if(me.status==="in"){hero.append(h("div","t","أهلاً "+me.name),h("div","big",String(pos)),h("div","s","ترتيبك في الطابور"));if(pos===1)hero.append(h("div","banner","الدور عليك! 🎉"))}
+      else if(me.status==="out"){hero.append(h("div","t","أهلاً "+me.name),h("div","big","🛵"),h("div","s","إنت بره في أوردر"+(me.at?" من "+tm(me.at):"")))}
+      else{hero.append(h("div","t","أهلاً "+me.name),h("div","big","👋"),h("div","s","دوس «وصلت» أول ما توصل الفرع"))}
+      $("hero").replaceChildren(hero);
+      act.textContent=me.status==="in"?"خرجت بأوردر 🛵":me.status==="out"?"رجعت الفرع ✅":"وصلت الفرع ✅";
+      act.classList.toggle("warn",me.status==="in")}
+    else $("hero").replaceChildren(h("div","card hero off",null,[h("div","big","👤"),h("div","t","اختار اسمك للبدء")]));
+    fill($("q1"),q.map((d,i)=>item(d,i+1,{first:i===0,me:me&&d.id===me.id})),"الطابور فاضي");
+    locUI();
+    if(loaded&&!me&&!asked&&tab==="tHome"){asked=true;openSheet()}
+    return}
+  $("act").classList.add("hide");
+  const ok=d=>!flt||d.shift===flt,qq=q.filter(ok),oo=drivers.filter(d=>d.status==="out"&&ok(d)).sort((a,b)=>a.at-b.at),aa=drivers.filter(d=>d.status==="off"&&ok(d));
+  $("s1").textContent=qq.length;$("s2").textContent=oo.length;$("s3").textContent=aa.length;
+  $("chips").replaceChildren(...[["","الكل"],["9","9 ص"],["13","1 ظ"],["15","3 م"]].map(([v,t])=>{const b=h("button",v===flt?"on":"",t);b.onclick=()=>{flt=v;render()};return b}));
+  const f=qq[0];
+  if(f){const n=item(f,1,{first:true,loc:true,acts:[["خرج بأوردر",()=>upd(f.id,{status:"out",at:NOW(),lat:null,lng:null}),true],["✕",()=>upd(f.id,{status:"off",at:0,lat:null,lng:null})]]});$("next").replaceChildren(h("h2","","الدور على"),n)}
+  else $("next").replaceChildren(h("div","card empty","مفيش حد في الفرع دلوقتي"));
+  $("qh").classList.toggle("hide",qq.length<2);
+  fill($("q2"),qq.slice(1).map((d,i)=>item(d,i+2,{loc:true,acts:[["⬆",()=>up(d)],["✕",()=>upd(d.id,{status:"off",at:0,lat:null,lng:null})]]})),"");
+  fill($("o2"),oo.map(d=>item(d,0,{acts:[["رجع الفرع",()=>upd(d.id,{status:"in",at:NOW()}),true]]})),"مفيش حد بره");
+  fill($("a2"),aa.map(d=>item(d,0,{acts:[["وصل",()=>upd(d.id,{status:"in",at:NOW()}),true],["مسح",()=>{if(confirm("مسح "+d.name+"؟"))ref.child(d.id).remove()}]]})),"الكل متواجد");
+  $("geost").textContent=branch?"موقع الفرع متسجل ✓ (النطاق "+rad()+" متر)":"لسه متحددش. «وصلت» هيشتغل من أي مكان.";
+  if(document.activeElement!==$("rad"))$("rad").value=rad();
+}
+function up(d){const q=inQ(),i=q.findIndex(x=>x.id===d.id);if(i>0)upd(d.id,{at:q[i-1].at-1})}
+
+function openSheet(){fill($("names"),drivers.map(d=>{const c=item(d,0,{});c.style.cursor="pointer";c.onclick=()=>{sset("me",d.id);$("sheet").classList.remove("on");vib();render()};return c}),"لسه مفيش أسماء. اطلب من المدير يضيفك.");$("sheet").classList.add("on")}
+$("sheet").onclick=e=>{if(e.target===$("sheet"))$("sheet").classList.remove("on")};
+$("chg").onclick=openSheet;
+const pin=()=>{if(prompt("رقم المدير السري:")===MANAGER_PIN)setMgr(true);else toast("الرقم غلط.")};
+$("login").onclick=pin;$("login2").onclick=pin;$("logout").onclick=()=>setMgr(false);
+$("locB").onclick=actLoc;
+
+$("act").onclick=async()=>{
+  const me=drivers.find(d=>d.id===myId());if(!me)return;
+  if(me.status==="in"){if(confirm("تأكيد الخروج بأوردر؟"))upd(me.id,{status:"out",at:NOW(),lat:null,lng:null});return}
+  $("act").disabled=true;
+  try{
+    let p=null;try{p=await getPos()}catch(e){if(e&&e.code===1)perm="denied"}
+    if(branch){
+      if(!p){toast("لازم تفعّل الموقع الأول عشان تسجل وصولك.");return}
+      const m=dist(p.lat,p.lng,branch.lat,branch.lng);
+      if(m>rad()){toast("إنت لسه بعيد عن الفرع ("+fm(m)+").");return}}
+    await upd(me.id,{status:"in",at:NOW(),lat:p?p.lat:null,lng:p?p.lng:null});toast("تم تسجيل وصولك ✓")
+  }finally{$("act").disabled=false;locUI()}};
+
+$("add").onclick=()=>{const n=$("nn").value.trim();if(!n)return;
+  ref.push({name:n,shift:$("ns").value,status:"off",at:0}).then(()=>{$("nn").value="";toast("تمت الإضافة ✓")}).catch(()=>toast("تعذر الإضافة."))};
+$("geo").onclick=async()=>{try{const p=await getPos();await bref.update({lat:p.lat,lng:p.lng});toast("تم حفظ موقع الفرع ✓")}catch(e){toast("تعذر تحديد الموقع. الصق الإحداثيات من جوجل ماب.")}};
+$("mcb").onclick=()=>{const m=$("mc").value.match(/(-?\d+(?:\.\d+)?)\s*[,،\s]\s*(-?\d+(?:\.\d+)?)/);
+  if(!m)return toast("اكتب الإحداثيات كده: 30.0444, 31.2357");
+  bref.update({lat:+m[1],lng:+m[2]}).then(()=>{$("mc").value="";toast("تم حفظ موقع الفرع ✓")}).catch(()=>toast("تعذر الحفظ."))};
+$("radb").onclick=()=>{const v=Math.max(30,+$("rad").value||200);bref.update({radius:v}).then(()=>toast("تم حفظ النطاق ✓"))};
+
+try{
+  firebase.initializeApp(firebaseConfig);
+  const root=firebase.database().ref();ref=root.child("drivers");bref=root.child("branch");
+  ref.on("value",s=>{const v=s.val()||{};drivers=Object.keys(v).map(k=>({id:k,...v[k]}));loaded=true;render()},()=>toast("مشكلة في الاتصال بقاعدة البيانات."));
+  bref.on("value",s=>{const v=s.val();branch=v&&v.lat!=null?v:null;render()});
+}catch(e){toast("إعدادات Firebase ناقصة.")}
+if(sget("mgr"))setMgr(true);else setTab("tHome");
+</script>
+</body>
+</html>
